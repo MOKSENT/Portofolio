@@ -51,7 +51,7 @@ var PROJECTS = [
    rows:{ar:[R("السياق","عملية إنتاج تحتاج متابعة يومية للأهداف والمعدلات."),R("النظام","داشبورد Excel لتتبّع إنتاج النفط وحقن الماء: الهدف الشهري، أعلى إنتاج يومي، ومعدل الشهر بمؤشرات بصرية."),R("النتيجة","متابعة يومية واضحة للأداء مقابل الهدف في شاشة واحدة.")],
          en:[R("Context","A production operation needing daily tracking of targets and rates."),R("System","An Excel dashboard for oil production and water injection: monthly target, highest daily output, and MTD average with visual gauges."),R("Result","Clear daily tracking of performance against target in one screen.")]}},
 
-  {id:"callcenter",cat:"excel",highlight:false,img:null,ph:"CC",
+  {id:"callcenter",cat:"excel",highlight:false,img:"callcenter.jpg",
    sector:{ar:"مراكز اتصال",en:"Call Centers"},
    title:{ar:"نظام تقارير مركز اتصال",en:"Call Center Reporting System"},
    tags:["Excel"],
@@ -59,7 +59,7 @@ var PROJECTS = [
    rows:{ar:[R("السياق","مركز اتصال يُنتج بيانات مكالمات يومية دون تقرير موحّد."),R("الاختناق","قياس أداء الموظفين وزمن الاستجابة يتم يدويًا ويتأخر."),R("النظام","نظام Excel يستقبل بيانات المكالمات ويُخرج تقرير أداء دوري جاهزًا، بنسختين عربية وإنجليزية."),R("النتيجة","تقرير جاهز في دقائق بدل ساعات، وقرار أوضح حول الفريق.")],
          en:[R("Context","A call center producing daily call data with no unified report."),R("Bottleneck","Measuring agent performance and response time was manual and late."),R("System","An Excel system that ingests call data and outputs a ready periodic report, in Arabic and English."),R("Result","A ready report in minutes instead of hours.")]}},
 
-  {id:"accounting",cat:"excel",highlight:false,img:null,ph:"ACC",
+  {id:"accounting",cat:"excel",highlight:false,img:"accounting.jpg",
    sector:{ar:"خدمات",en:"Services"},
    title:{ar:"نظام محاسبي متكامل",en:"Integrated Accounting System"},
    tags:["Excel","VBA"],
@@ -67,7 +67,7 @@ var PROJECTS = [
    rows:{ar:[R("السياق","نشاط يحتاج ضبط الحسابات والتقارير المالية بدل السجلات المتفرقة."),R("النظام","نظام محاسبي متعدد الأبواب: قيود، حسابات، وتقارير مالية دورية."),R("النتيجة","سجلّ مالي منظّم وتقارير جاهزة تدعم القرار.")],
          en:[R("Context","A business needing organized accounts and financial reports."),R("System","A multi-module accounting system: entries, accounts and periodic reports."),R("Result","Organized financial records and ready decision-support reports.")]}},
 
-  {id:"admin-systems",cat:"excel",highlight:false,img:null,ph:"ADM",
+  {id:"admin-systems",cat:"excel",highlight:false,img:"admin.jpg",
    sector:{ar:"خدمات",en:"Services"},
    title:{ar:"أنظمة إدارية (تصاريح وتسكين ومخزون)",en:"Admin Systems (Permits, Housing, Stock)"},
    tags:["Excel","VBA"],
@@ -75,7 +75,7 @@ var PROJECTS = [
    rows:{ar:[R("السياق","منشأة بعمليات إدارية متكررة تُدار يدويًا (تصاريح، تسكين، تنقّل، مخزون)."),R("النظام","حزمة أنظمة Excel/VBA لكل عملية بواجهات إدخال وتقارير."),R("النتيجة","تشغيل أسرع وأدق للعمليات الإدارية اليومية.")],
          en:[R("Context","A facility with recurring admin operations handled manually."),R("System","An Excel/VBA pack per operation with input interfaces and reports."),R("Result","Faster, more accurate daily administrative operations.")]}},
 
-  {id:"attendance",cat:"excel",highlight:false,img:null,ph:"ATT",
+  {id:"attendance",cat:"excel",highlight:false,img:"attendance.jpg",
    sector:{ar:"تعليم",en:"Education"},
    title:{ar:"نظام حضور وانصراف طلاب",en:"Student Attendance System"},
    tags:["Excel"],
@@ -100,7 +100,7 @@ var PROJECTS = [
          en:[R("Context","An investment decision needing a clear financial read before committing."),R("Bottleneck","No financial model measuring return, risk and scenarios."),R("System","A bilingual feasibility study with a financial model, NPV/IRR metrics and scenarios, tied to an executive deck."),R("Result","A number-backed decision with a clear phased path.")]},
    note:{ar:"الغلاف نموذج تعريفي لأسلوب دراسات الجدوى؛ لقطات مشاريع فعلية متاحة عند الطلب (بعد إخفاء هوية العميل).",en:"The cover illustrates the feasibility style; actual project shots are available on request (client hidden)."}},
 
-  {id:"budget",cat:"finance",highlight:false,img:null,ph:"FIN",
+  {id:"budget",cat:"finance",highlight:false,img:"budget.jpg",
    sector:{ar:"تعليم",en:"Education"},
    title:{ar:"موازنة وعروض مالية تنفيذية",en:"Budget & Executive Financial Decks"},
    tags:["Finance","Reporting"],
@@ -134,7 +134,7 @@ var PROJECTS = [
    rows:{ar:[R("الفكرة","منتج جاهز يساعد أصحاب الأعمال على تسعير منتجاتهم وحساب أرباحهم بثقة."),R("المكوّنات","أبواب: التكاليف، المنتجات، التسعير، محاكاة الربح، ونقطة التعادل."),R("القيمة","قرار تسعير مبني على أرقام بدل الحدس — منتج قابل للبيع مباشرة.")],
          en:[R("Idea","A ready product helping business owners price products and compute profit with confidence."),R("Modules","Costs, Products, Pricing, Profit Simulation, and Break-even."),R("Value","A number-based pricing decision instead of guessing — a directly sellable product.")]}},
 
-  {id:"templates-pack",cat:"products",highlight:false,img:null,ph:"XLS",
+  {id:"templates-pack",cat:"products",highlight:false,img:"templates.jpg",
    sector:{ar:"منتجات رقمية",en:"Digital Products"},
    title:{ar:"قوالب Excel جاهزة",en:"Ready-Made Excel Templates"},
    tags:["Excel","Templates"],
@@ -142,7 +142,7 @@ var PROJECTS = [
    rows:{ar:[R("الفكرة","قوالب Excel جاهزة تحلّ مهام متكررة لأصحاب الأعمال الصغار."),R("المكوّنات","مُسدّد للمدفوعات، مدير المهام، متتبّع الدخل والمصروفات، ونظام طلبات واتساب."),R("القيمة","حلول فورية منخفضة السعر، قابلة للبيع كأصول رقمية متكررة.")],
          en:[R("Idea","Ready Excel templates solving recurring tasks for small businesses."),R("Modules","A payments tracker, task manager, income/expense tracker, and a WhatsApp-orders system."),R("Value","Instant low-price solutions, sellable as recurring digital assets.")]}},
 
-  {id:"finance-book",cat:"content",highlight:false,img:null,ph:"BOOK",
+  {id:"finance-book",cat:"content",highlight:false,img:"book.jpg",
    sector:{ar:"كتاب",en:"Book"},
    title:{ar:"كتاب «أين يذهب مالك؟»",en:"Book: \"Where Does Your Money Go?\""},
    tags:["Book","Finance"],
@@ -150,7 +150,7 @@ var PROJECTS = [
    rows:{ar:[R("الفكرة","كتاب يبسّط الوعي المالي الشخصي بأسلوب عملي."),R("العمل","تأليف وتحرير وتجهيز كامل للكتاب حتى الإخراج النهائي."),R("القيمة","محتوى تعليمي مكتمل يعكس قدرة على تحويل المعرفة إلى منتج.")],
          en:[R("Idea","A book simplifying personal financial awareness in a practical style."),R("Work","Full authoring, editing and production to final output."),R("Value","A completed educational product showing the ability to turn knowledge into an asset.")]}},
 
-  {id:"ecommerce-guide",cat:"content",highlight:false,img:null,ph:"GUIDE",
+  {id:"ecommerce-guide",cat:"content",highlight:false,img:"guide.jpg",
    sector:{ar:"محتوى تعليمي",en:"Educational Content"},
    title:{ar:"كتيب التجارة الإلكترونية",en:"E-commerce Guide"},
    tags:["Guide","E-commerce"],

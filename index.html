@@ -93,7 +93,9 @@ header.nav{position:sticky;top:0;z-index:50;background:rgba(20,19,15,.82);backdr
 .wcard summary{color:var(--accent);font-size:13.5px;font-weight:600;cursor:pointer;list-style:none}
 .wcard summary::-webkit-details-marker{display:none}
 .wcard details[open] summary{margin-bottom:10px}
-.wcard .detail{color:var(--muted);font-size:13.5px;border-top:1px solid var(--border);padding-top:10px}
+.wcard .detail{display:none}
+.wcard details{pointer-events:none}
+.wcard summary{pointer-events:auto}
 .wcard .detail b{color:var(--text);font-weight:700}
 @media(max-width:860px){.work{grid-template-columns:1fr}}
 /* impact */
@@ -127,6 +129,21 @@ footer{padding:48px 0;border-top:1px solid var(--border);color:var(--muted);font
 .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
 .foot-links{display:flex;gap:18px}
 .foot-links a:hover{color:var(--accent)}
+.wcard .read::after{content:" ↗"}
+.modal{position:fixed;inset:0;background:rgba(10,9,7,.82);backdrop-filter:blur(6px);z-index:100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
+.modal.open{display:flex}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;max-width:820px;width:100%;overflow:hidden;position:relative;margin:auto}
+.modal-close{position:absolute;top:14px;inset-inline-start:14px;background:rgba(0,0,0,.45);color:var(--text);border:1px solid var(--border);width:38px;height:38px;border-radius:10px;font-size:16px;cursor:pointer;z-index:2}
+.modal-close:hover{border-color:var(--accent);color:var(--accent)}
+.modal-img{width:100%;display:block;border-bottom:1px solid var(--border);background:#0f0e0b}
+.modal-body{padding:30px}
+.modal-sector{display:inline-block;background:rgba(227,166,75,.12);color:var(--accent);font-size:13px;padding:5px 12px;border-radius:20px;margin-bottom:14px}
+.modal-body h3{font-size:26px;font-weight:800;margin-bottom:20px;line-height:1.3}
+.modal-row{margin-bottom:16px}
+.modal-row .k{color:var(--accent);font-size:13px;font-weight:700;margin-bottom:4px}
+.modal-row .v{color:var(--muted);font-size:16px;line-height:1.85}
+.modal-note{margin-top:20px;padding:12px 16px;background:var(--bg);border:1px dashed var(--border);border-radius:12px;color:var(--muted);font-size:13px}
+body.noscroll{overflow:hidden}
 </style>
 </head>
 <body>
@@ -289,6 +306,8 @@ footer{padding:48px 0;border-top:1px solid var(--border);color:var(--muted);font
   </div>
 </footer>
 
+<div class="modal" id="projModal"><div class="modal-box"><button class="modal-close" id="modalClose" aria-label="close">✕</button><div id="modalContent"></div></div></div>
+
 <script>
 (function(){
   var WA="https://wa.me/966548767480?text="+encodeURIComponent("السلام عليكم نواف، حاب أستفسر عن خدماتك.");
@@ -308,7 +327,7 @@ footer{padding:48px 0;border-top:1px solid var(--border);color:var(--muted);font
     });
     // toggle english-only helper spans / chips remain
   }
-  btn.addEventListener("click",function(){lang=(lang==="ar")?"en":"ar";apply();});
+  btn.addEventListener("click",function(){lang=(lang==="ar")?"en":"ar";apply();if(currentKey)renderModal(currentKey);});
 
   // reveal on scroll
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12});
@@ -322,6 +341,105 @@ footer{padding:48px 0;border-top:1px solid var(--border);color:var(--muted);font
   }
   var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);io2.unobserve(e.target);}});},{threshold:.5});
   document.querySelectorAll("[data-count]").forEach(function(el){io2.observe(el);});
+
+  // ---- project detail modal ----
+  var DETAILS = {
+    "لوحة Power BI للمشتريات والمخزون":{img:"powerbi.jpg",
+      ar:{sector:"تجارة / مشتريات",title:"لوحة Power BI للمشتريات والمخزون",rows:[
+        ["السياق","جهة تجزئة لها فروع موزّعة، وكل فرع يرسل أرقامه على حدة فتتأخر القراءة الكلية للأداء."],
+        ["الاختناق","أي منتج الأكثر مبيعًا؟ أي فرع يتفوّق؟ أين يتركّز المخزون؟ الإجابات مبعثرة."],
+        ["النظام","لوحة Power BI تفاعلية تجمع المبيعات والكميات والمخزون عبر الفروع، مع توزيع جغرافي للعملاء وأهم المنتجات، قابلة للتصفية حسب الربع أو الفرع."],
+        ["النتيجة","الإدارة تقرأ أداء كل الفروع في شاشة واحدة وتقارن لحظيًا، فتتحوّل المراجعة من تجميع إلى قرار."]]},
+      en:{sector:"Retail / Procurement",title:"Power BI Procurement & Inventory Dashboard",rows:[
+        ["Context","A retailer with distributed branches, each reporting separately — so the overall read was slow."],
+        ["Bottleneck","Which product sells most? Which branch leads? Where is stock concentrated? Answers were scattered."],
+        ["System","An interactive Power BI dashboard uniting sales, quantities and stock across branches, with a geographic split and top products, filterable by quarter or branch."],
+        ["Result","Management reads every branch in one screen and compares live — review shifts from assembling to deciding."]]}},
+    "نظام تقارير مركز اتصال":{img:null,
+      ar:{sector:"مراكز اتصال",title:"نظام تقارير مركز اتصال",rows:[
+        ["السياق","مركز اتصال يُنتج بيانات مكالمات يومية دون تقرير موحّد."],
+        ["الاختناق","قياس أداء الموظفين وزمن الاستجابة يتم يدويًا ويتأخر."],
+        ["النظام","نظام Excel يستقبل بيانات المكالمات ويُخرج تقرير أداء دوري جاهزًا، بنسختين عربية وإنجليزية."],
+        ["النتيجة","تقرير أداء جاهز في دقائق بدل ساعات، وقرار أوضح حول الفريق."]]},
+      en:{sector:"Call Centers",title:"Call Center Reporting System",rows:[
+        ["Context","A call center producing daily call data with no unified report."],
+        ["Bottleneck","Measuring agent performance and response time was manual and late."],
+        ["System","An Excel system that ingests call data and outputs a ready periodic performance report, in Arabic and English."],
+        ["Result","A ready report in minutes instead of hours, and a clearer view of the team."]]},
+      note:{ar:"لقطة هذا العمل قيد الإضافة.",en:"A screenshot for this project is being added."}},
+    "نظام مبيعات ومتابعة أداء":{img:"sales.jpg",
+      ar:{sector:"عقاري",title:"نظام مبيعات ومتابعة أداء",rows:[
+        ["السياق","فريق مبيعات يتابع الصفقات والأهداف وأداء الموظفين على جداول متفرقة."],
+        ["الاختناق","لا رؤية لحظية للأداء مقابل الهدف ولا لأفضل/أضعف موظف."],
+        ["النظام","نظام Excel يربط الصفقات بالأهداف، ويُظهر إجمالي المبيعات ونسبة الإنجاز ومؤشر حالة البيع وأداء كل موظف."],
+        ["النتيجة","الإدارة ترى أداء المبيعات والفريق لحظيًا وتتخذ قرار المتابعة أسرع."]]},
+      en:{sector:"Real Estate",title:"Sales & Performance System",rows:[
+        ["Context","A sales team tracking deals, targets and staff performance across scattered sheets."],
+        ["Bottleneck","No live view of performance against target or of top/bottom performers."],
+        ["System","An Excel system linking deals to targets, showing total sales, completion rate, a deal-status indicator and per-employee performance."],
+        ["Result","Management sees sales and team performance live and acts faster."]]}},
+    "نظام إدارة مخزون":{img:"inventory.jpg",
+      ar:{sector:"رعاية صحية",title:"نظام إدارة مخزون",rows:[
+        ["السياق","مراكز رعاية صحية بمئات الأصناف تُدار يدويًا."],
+        ["الاختناق","الجرد اليدوي بطيء ويُنتج أخطاء نفاد."],
+        ["النظام","نظام متعدد الأبواب بلوحة KPI: حالة الكميات، أكثر/أقل الأصناف حركة، حركة الإدخال والإخراج والإتلاف، وواجهات إدخال كاملة."],
+        ["النتيجة","جرد أدق، تنبيهات استباقية، ووقت أقل في الإدارة."]]},
+      en:{sector:"Healthcare",title:"Inventory Management System",rows:[
+        ["Context","Healthcare centers with hundreds of items managed manually."],
+        ["Bottleneck","Manual stock-taking was slow and caused stockouts."],
+        ["System","A multi-module system with a KPI board: quantity status, top/least moving items, inbound/outbound/disposal movement, and full input interfaces."],
+        ["Result","More accurate counts, proactive alerts, and less admin time."]]}},
+    "داشبورد مؤشرات موارد بشرية":{img:"hr.jpg",
+      ar:{sector:"موارد بشرية",title:"داشبورد مؤشرات موارد بشرية",rows:[
+        ["السياق","جهة بعدد كبير من الموظفين تحتاج متابعة القوى العاملة والإقامات والتكاليف."],
+        ["الاختناق","بيانات الموظفين والجنسيات والمهن والإقامات موزّعة بلا لوحة تجمعها."],
+        ["النظام","لوحة تجمع إجمالي الموظفين، التوزيع حسب المهنة والجنسية والجنس، الإقامات المنتهية والقادمة، ومقارنة تكاليف التجديد."],
+        ["النتيجة","الإدارة تقرأ حالة القوى العاملة والإقامات بلمحة وتخطّط التجديدات مبكرًا."]]},
+      en:{sector:"Human Resources",title:"HR Metrics Dashboard",rows:[
+        ["Context","An organization with a large workforce needing to track headcount, residencies and costs."],
+        ["Bottleneck","Employee, nationality, profession and residency data scattered with no unifying board."],
+        ["System","A dashboard uniting total headcount, distribution by profession/nationality/gender, expiring and upcoming residencies, and renewal-cost comparison."],
+        ["Result","Management reads workforce and residency status at a glance and plans renewals early."]]},
+      note:{ar:"لوحة مراقبة قوى عاملة وإقامات — أُخفيت هوية الجهة.",en:"A workforce & residency dashboard — the client identity is hidden."}},
+    "دراسة جدوى شقق فندقية":{img:"feasibility.jpg",
+      ar:{sector:"عقاري",title:"دراسة جدوى شقق فندقية",rows:[
+        ["السياق","قرار استثمار في شقق فندقية بقطاع عقاري."],
+        ["الاختناق","غياب قراءة مالية واضحة للجدوى والمخاطر قبل الالتزام."],
+        ["النظام","دراسة جدوى ثنائية اللغة بنموذج مالي، مؤشرات عائد وسيناريوهات، مربوطة بعرض تنفيذي مفهوم لصاحب القرار."],
+        ["النتيجة","قرار استثماري مسنود بأرقام ومسار مرحلي واضح بدل الحدس."]]},
+      en:{sector:"Real Estate",title:"Hotel Apartments Feasibility",rows:[
+        ["Context","An investment decision on hotel apartments in real estate."],
+        ["Bottleneck","No clear financial read of feasibility and risk before committing."],
+        ["System","A bilingual feasibility study with a financial model, return metrics and scenarios, tied to a clear executive deck."],
+        ["Result","An investment decision backed by numbers and a clear phased path instead of guesswork."]]},
+      note:{ar:"الصورة نموذج تعريفي لأسلوب دراسات الجدوى — لقطة المشروع الفعلي متاحة عند الطلب.",en:"The image illustrates the feasibility-study style — the actual project shot is available on request."}}
+  };
+  var currentKey=null;
+  var modal=document.getElementById("projModal");
+  var mc=document.getElementById("modalContent");
+  function tr(o){return lang==="ar"?o.ar:o.en;}
+  function renderModal(key){
+    var d=DETAILS[key]; if(!d)return;
+    var t=tr(d);
+    var img=d.img?('<img class="modal-img" src="'+d.img+'" alt="">'):'';
+    var rows="";
+    t.rows.forEach(function(r){rows+='<div class="modal-row"><div class="k">'+r[0]+'</div><div class="v">'+r[1]+'</div></div>';});
+    var note=d.note?('<div class="modal-note">'+tr({ar:d.note.ar,en:d.note.en})+'</div>'):'';
+    mc.innerHTML=img+'<div class="modal-body"><span class="modal-sector">'+t.sector+'</span><h3>'+t.title+'</h3>'+rows+note+'</div>';
+    modal.scrollTop=0;
+  }
+  function openModal(key){currentKey=key;renderModal(key);modal.classList.add("open");document.body.classList.add("noscroll");}
+  function closeModal(){modal.classList.remove("open");document.body.classList.remove("noscroll");currentKey=null;}
+  document.getElementById("modalClose").addEventListener("click",closeModal);
+  modal.addEventListener("click",function(e){if(e.target===modal)closeModal();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeModal();});
+  document.querySelectorAll(".wcard").forEach(function(card){
+    card.addEventListener("click",function(e){
+      if(e.target.closest("a"))return;
+      var h=card.querySelector("h4"); if(!h)return;
+      openModal(h.getAttribute("data-ar"));
+    });
+  });
 })();
 </script>
 </body>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كل الأعمال — نواف الشريف</title>
+<meta name="description" content="معرض كامل لأعمال نواف الشريف: لوحات Power BI، أنظمة Excel، نماذج مالية ودراسات جدوى، تقارير، ومنتجات رقمية.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="index.html" data-ar="نواف الشريف" data-en="Nawaf Alshareif">نواف الشريف</a>
+    <nav class="nav-links">
+      <a href="index.html#approach" data-ar="المنهجية" data-en="Approach">المنهجية</a>
+      <a href="index.html#capabilities" data-ar="القدرات" data-en="Capabilities">القدرات</a>
+      <a href="work.html" data-ar="الأعمال" data-en="Work">الأعمال</a>
+      <a href="index.html#about" data-ar="عني" data-en="About">عني</a>
+    </nav>
+    <div class="nav-right">
+      <button class="lang-btn" id="langBtn">EN</button>
+      <a class="btn btn-primary" id="waNav" target="_blank"><span data-ar="تواصل معي" data-en="Get in touch">تواصل معي</span></a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap page-head">
+  <div class="crumb"><a href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a> / <span data-ar="كل الأعمال" data-en="All work">كل الأعمال</span></div>
+  <h1 data-ar="كل الأعمال والمشاريع" data-en="All work & projects">كل الأعمال والمشاريع</h1>
+  <p data-ar="أعمال حقيقية عبر قطاعات وأنواع مختلفة — مجمّعة حسب نوع الخدمة. اضغط أي عمل لصفحته الكاملة." data-en="Real work across sectors and types — grouped by service. Click any project for its full page.">أعمال حقيقية عبر قطاعات وأنواع مختلفة — مجمّعة حسب نوع الخدمة. اضغط أي عمل لصفحته الكاملة.</p>
+</div>
+
+<main id="allwork"></main>
+
+<section class="cta" id="contact">
+  <div class="wrap">
+    <h2 data-ar="عندك مشروع مشابه؟" data-en="Have a similar project?">عندك مشروع مشابه؟</h2>
+    <p data-ar="نبدأ بمكالمة تشخيص قصيرة نحدّد فيها الخطوة." data-en="We start with a short diagnostic call to define the step.">نبدأ بمكالمة تشخيص قصيرة نحدّد فيها الخطوة.</p>
+    <div class="btns"><a class="btn btn-primary wa" target="_blank"><span data-ar="تواصل معي" data-en="Get in touch">تواصل معي</span> ↗</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div data-ar="© 2025 نواف الشريف. جميع الحقوق محفوظة." data-en="© 2025 Nawaf Alshareif. All rights reserved.">© 2025 نواف الشريف. جميع الحقوق محفوظة.</div>
+    <div class="foot-links">
+      <a href="mailto:alshareifnawaf60@gmail.com">alshareifnawaf60@gmail.com</a>
+      <a class="wa" target="_blank" data-ar="واتساب" data-en="WhatsApp">واتساب</a>
+      <a href="https://mostaql.com/u/EngNawaf/reviews" target="_blank" data-ar="مستقل" data-en="Mostaql">مستقل</a>
+    </div>
+  </div>
+</footer>
+
+<script src="projects.js"></script>
+<script>
+window.__renderPage=window.__rerender=function(){
+  var root=document.getElementById("allwork"); if(!root)return;
+  var en=window.__lang==="en";
+  root.innerHTML=CATS.map(function(c){
+    var items=PROJECTS.filter(function(p){return p.cat===c.id;});
+    if(!items.length)return"";
+    return '<section class="catsec"><div class="wrap"><h2>'+(en?c.en:c.ar)+'</h2>'+
+      '<div class="work">'+items.map(window.__cardHTML).join("")+'</div></div></section>';
+  }).join("");
+  root.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");});
+};
+</script>
+</body>
+</html>

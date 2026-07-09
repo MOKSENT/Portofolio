@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عمل — نواف الشريف</title>
+<meta name="description" content="تفاصيل عمل من أعمال نواف الشريف.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="index.html" data-ar="نواف الشريف" data-en="Nawaf Alshareif">نواف الشريف</a>
+    <nav class="nav-links">
+      <a href="index.html#approach" data-ar="المنهجية" data-en="Approach">المنهجية</a>
+      <a href="index.html#capabilities" data-ar="القدرات" data-en="Capabilities">القدرات</a>
+      <a href="work.html" data-ar="الأعمال" data-en="Work">الأعمال</a>
+      <a href="index.html#about" data-ar="عني" data-en="About">عني</a>
+    </nav>
+    <div class="nav-right">
+      <button class="lang-btn" id="langBtn">EN</button>
+      <a class="btn btn-primary" id="waNav" target="_blank"><span data-ar="تواصل معي" data-en="Get in touch">تواصل معي</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="project" class="wrap"></main>
+
+<div class="lightbox" id="lightbox"><img id="lightImg" src="" alt=""></div>
+
+<footer>
+  <div class="wrap foot-in">
+    <div data-ar="© 2025 نواف الشريف. جميع الحقوق محفوظة." data-en="© 2025 Nawaf Alshareif. All rights reserved.">© 2025 نواف الشريف. جميع الحقوق محفوظة.</div>
+    <div class="foot-links">
+      <a href="mailto:alshareifnawaf60@gmail.com">alshareifnawaf60@gmail.com</a>
+      <a class="wa" target="_blank" data-ar="واتساب" data-en="WhatsApp">واتساب</a>
+      <a href="https://mostaql.com/u/EngNawaf/reviews" target="_blank" data-ar="مستقل" data-en="Mostaql">مستقل</a>
+    </div>
+  </div>
+</footer>
+
+<script src="projects.js"></script>
+<script>
+function qs(k){var m=new RegExp("[?&]"+k+"=([^&]+)").exec(location.search);return m?decodeURIComponent(m[1]):null;}
+var L={ar:{home:"الرئيسية",all:"كل الأعمال",sector:"القطاع",type:"نوع الخدمة",tools:"الأدوات",facts:"بطاقة العمل",prev:"السابق",next:"التالي",notfound:"العمل غير موجود.",back:"العودة لكل الأعمال",cta:"تريد عملًا مشابهًا؟",ctab:"تواصل معي"},
+       en:{home:"Home",all:"All work",sector:"Sector",type:"Service",tools:"Tools",facts:"Project card",prev:"Previous",next:"Next",notfound:"Project not found.",back:"Back to all work",cta:"Want a similar project?",ctab:"Get in touch"}};
+window.__renderPage=window.__rerender=function(){
+  var root=document.getElementById("project"); if(!root)return;
+  var en=window.__lang==="en", t=en?L.en:L.ar, T=window.__T;
+  var id=qs("id");
+  var idx=PROJECTS.findIndex(function(p){return p.id===id;});
+  var p=PROJECTS[idx];
+  if(!p){root.innerHTML='<div style="padding:80px 0"><h2>'+t.notfound+'</h2><p><a class="accent" href="work.html">'+t.back+'</a></p></div>';document.title=t.notfound;return;}
+  document.title=T(p.title)+" — "+(en?"Nawaf Alshareif":"نواف الشريف");
+  var cat=CATS.filter(function(c){return c.id===p.cat;})[0];
+  var cover=p.img?('<img class="proj-cover" id="cover" src="'+p.img+'" alt="">'):('<div class="proj-cover ph"><span>'+(p.ph||"•")+'</span></div>');
+  var rows=(en?p.rows.en:p.rows.ar).map(function(r){return '<div class="proj-row"><div class="k">'+r[0]+'</div><div class="v">'+r[1]+'</div></div>';}).join("");
+  var note=p.note?('<div class="proj-note">'+T(p.note)+'</div>'):"";
+  var facts='<div class="proj-side"><h4>'+t.facts+'</h4>'+
+    '<div class="kv"><span class="kk">'+t.sector+'</span><span>'+T(p.sector)+'</span></div>'+
+    '<div class="kv"><span class="kk">'+t.type+'</span><span>'+(en?cat.en:cat.ar)+'</span></div>'+
+    '<div class="kv"><span class="kk">'+t.tools+'</span><span>'+p.tags.join(" · ")+'</span></div>'+note+'</div>';
+  var prev=PROJECTS[(idx-1+PROJECTS.length)%PROJECTS.length], next=PROJECTS[(idx+1)%PROJECTS.length];
+  var nav='<div class="proj-nav"><a class="btn btn-ghost" href="project.html?id='+prev.id+'">← '+t.prev+'</a><a class="btn btn-ghost" href="project.html?id='+next.id+'">'+t.next+' →</a></div>';
+  root.innerHTML=
+    '<div class="crumb"><a href="index.html">'+t.home+'</a> / <a href="work.html">'+t.all+'</a> / <span>'+T(p.title)+'</span></div>'+
+    '<div class="proj-hero"><div class="proj-meta"><span class="sector">'+T(p.sector)+'</span><span class="sector">'+(en?cat.en:cat.ar)+'</span></div>'+
+    '<h1 class="proj-title">'+T(p.title)+'</h1>'+cover+'</div>'+
+    '<div class="proj-body"><div>'+rows+'</div>'+facts+'</div>'+nav+
+    '<section class="cta" style="border-top:1px solid var(--border)"><h2>'+t.cta+'</h2><div class="btns" style="justify-content:center"><a class="btn btn-primary wa" target="_blank">'+t.ctab+' ↗</a></div></section>';
+  // rewire wa + lightbox
+  var WA="https://wa.me/966548767480?text="+encodeURIComponent("السلام عليكم نواف، حاب أستفسر عن خدماتك.");
+  root.querySelectorAll("a.wa").forEach(function(a){a.href=WA;});
+  var cv=document.getElementById("cover");
+  if(cv){cv.addEventListener("click",function(){var lb=document.getElementById("lightbox");document.getElementById("lightImg").src=cv.src;lb.classList.add("open");document.body.classList.add("noscroll");});}
+};
+document.addEventListener("DOMContentLoaded",function(){
+  var lb=document.getElementById("lightbox");
+  lb.addEventListener("click",function(){lb.classList.remove("open");document.body.classList.remove("noscroll");});
+});
+</script>
+</body>
+</html>
